@@ -9,10 +9,9 @@ public class House extends Asset {
 
     }
 
-    public House(int condition, int squareFoot, int lotSize) {
-        getDescription();
-        getDateAquired();
-        getOriginalCost();
+    public House(int condition, int squareFoot, int lotSize, double originalCost) {
+        setDescription(getDescription());
+        setOriginalCost(originalCost);
         this.condition = condition;
         this.squareFoot = squareFoot;
         this.lotSize = lotSize;
@@ -59,14 +58,14 @@ public class House extends Asset {
                 price = 80;
                 break;
             default:
-                System.out.println("Condition must be 1-4");
+                System.out.println("Condition must be between 1-4");
                 break;
         }
-        return lotSize * price;
+        return this.squareFoot * price;
     }
 
     @Override
-    public String toString() {
-        return getDescription() + " " + getValue() + " " + lotSize;
+    public String getDescription() {
+        return this.squareFoot + " sqr ft, condition(1-4): " + this.condition + " Original value: $" + this.getOriginalCost()  + " Current value: $" + this.getValue();
     }
 }

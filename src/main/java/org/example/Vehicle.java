@@ -9,10 +9,15 @@ public class Vehicle extends Asset {
     private int year;
     private int odometer;
 
-    public Vehicle(String makeModel, int year, int odometer) {
+    public Vehicle() {
+
+    }
+
+    public Vehicle(String makeModel, int year, int odometer, double originalCost) {
         this.makeModel = makeModel;
         this.year = year;
         this.odometer = odometer;
+        this.setOriginalCost(originalCost);
     }
 
     public String getMakeModel() {
@@ -61,13 +66,18 @@ public class Vehicle extends Asset {
             reduction = .08 * yearDiff;
             price = reductedPrice;
         } else if (yearDiff > 10) {
-             price = this.getOriginalCost() - 1000;
+             reduction = (.08 * yearDiff) + 1000;
+             price = reductedPrice;
         }
 
         if(this.odometer > 100_000 && !this.makeModel.equalsIgnoreCase("Honda") || !this.makeModel.equalsIgnoreCase("Toyota")) {
             price = price - (price * .25);
         }
-
         return price;
+    }
+
+    @Override
+    public String getDescription() {
+        return this.year + " " + this.makeModel + " Original value: $" + this.getOriginalCost()  + " Current value: $" + this.getValue();
     }
 }
